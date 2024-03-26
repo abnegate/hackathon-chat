@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_chats">
+
+    <fragment
+        android:id="@+id/navigation_login"
+        android:name="io.appwrite.messagewrite.ui.login.LoginFragment"
+        android:label="@string/title_login"
+        tools:layout="@layout/fragment_login">
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_chats"
+        android:name="io.appwrite.messagewrite.ui.chats.ChatsFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_chats">
+
+        <action
+            android:id="@+id/navigate_chats_to_login"
+            app:destination="@id/navigation_login"
+            app:popUpTo="@+id/navigation_chats"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_contacts"
+        android:name="io.appwrite.messagewrite.ui.contacts.ContactsFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_contacts">
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="io.appwrite.messagewrite.ui.settings.SettingsFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_settings">
+    </fragment>
+</navigation>
