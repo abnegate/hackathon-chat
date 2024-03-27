@@ -15,7 +15,7 @@
     <fragment
         android:id="@+id/navigation_chats"
         android:name="io.appwrite.messagewrite.ui.chats.ChatsFragment"
-        android:label="@string/title_home"
+        android:label="@string/title_chats"
         tools:layout="@layout/fragment_chats">
 
         <action
@@ -28,14 +28,14 @@
     <fragment
         android:id="@+id/navigation_contacts"
         android:name="io.appwrite.messagewrite.ui.contacts.ContactsFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_contacts"
         tools:layout="@layout/fragment_contacts">
     </fragment>
 
     <fragment
         android:id="@+id/navigation_settings"
         android:name="io.appwrite.messagewrite.ui.settings.SettingsFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings">
     </fragment>
 </navigation>

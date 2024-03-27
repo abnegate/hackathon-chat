@@ -5,9 +5,9 @@ import androidx.room.RoomDatabase
 import io.appwrite.messagewrite.database.dao.Chats
 import io.appwrite.messagewrite.database.dao.Contacts
 import io.appwrite.messagewrite.database.dao.Messages
-import io.appwrite.messagewrite.models.Chat
-import io.appwrite.messagewrite.models.Contact
-import io.appwrite.messagewrite.models.Message
+import io.appwrite.messagewrite.models.db.Chat
+import io.appwrite.messagewrite.models.db.Contact
+import io.appwrite.messagewrite.models.db.Message
 
 @Database(
     entities = [

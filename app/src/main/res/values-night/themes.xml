@@ -2,9 +2,9 @@
     <!-- Base application theme. -->
     <style name="Theme.MessageWrite" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimary">@color/appwrite_dark_grey</item>
+        <item name="colorPrimaryVariant">@color/appwrite_dark_mid_grey</item>
+        <item name="colorOnPrimary">@color/appwrite_pink</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_200</item>
@@ -13,4 +13,15 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="NavigationChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/nav_item_text_color_selector</item>
+        <item name="chipMinTouchTargetSize">0dp</item>
+        <item name="chipBackgroundColor">@drawable/nav_item_background_selector</item>
+        <item name="chipCornerRadius">@dimen/rounded_corner_radius</item>
+        <item name="chipStrokeColor">@android:color/transparent</item>
+        <item name="chipIcon">@null</item>
+    </style>
+
 </resources>
