@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.androidNavigationSafeArgs)
     alias(libs.plugins.kotlinKsp)
     alias(libs.plugins.hilt)
     kotlin("kapt")
@@ -83,6 +84,9 @@ dependencies {
 
     // Appwrite
     implementation(libs.appwrite)
+
+    // Glide
+    implementation(libs.glide)
 
     // Android Test
     testImplementation(libs.junit)

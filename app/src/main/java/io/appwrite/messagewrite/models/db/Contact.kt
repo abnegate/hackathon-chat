@@ -11,5 +11,6 @@ data class Contact(
     val collectionId: String,
     val databaseId: String,
     val contactId: String,
+    val ownerId: String,
     val userId: String,
 )

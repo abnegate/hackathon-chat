@@ -6,41 +6,57 @@ import io.appwrite.Query
 import io.appwrite.Role
 import io.appwrite.exceptions.AppwriteException
 import io.appwrite.messagewrite.COLLECTION_CHATS
+import io.appwrite.messagewrite.COLLECTION_USERS
 import io.appwrite.messagewrite.DATABASE_ID
 import io.appwrite.messagewrite.cache.Cache
 import io.appwrite.messagewrite.database.dao.Chats
-import io.appwrite.messagewrite.models.Chat
-import io.appwrite.messagewrite.models.db.Chat as DBChat
+import io.appwrite.messagewrite.models.AuthState
+import io.appwrite.messagewrite.models.network.Chat
+import io.appwrite.messagewrite.models.network.User
 import io.appwrite.messagewrite.services.Network
 import io.appwrite.models.Document
 import io.appwrite.models.DocumentList
 import io.appwrite.services.Databases
 import javax.inject.Inject
+import io.appwrite.messagewrite.models.db.Chat as DBChat
 
 class Chats @Inject constructor(
+    private val authState: AuthState,
     private val databases: Databases,
     private val chatDao: Chats,
     private val cache: Cache<String, Document<Chat>>
 ) {
     @Throws(AppwriteException::class)
     suspend fun create(
-        user1Id: String,
-        user2Id: String
+        userId: String,
     ): Document<Chat> {
+        val currentUser = authState.user!!
+
+        val otherUser = databases.getDocument(
+            DATABASE_ID,
+            COLLECTION_USERS,
+            userId,
+            null,
+            User::class.java
+        )
+
         val chatId = ID.unique()
 
         val chat = databases.createDocument(
             DATABASE_ID,
             COLLECTION_CHATS,
             chatId,
-            Chat(user1Id, user2Id),
+            Chat(
+                currentUser.id,
+                otherUser.id,
+            ),
             listOf(
-                Permission.read(Role.user(user1Id)),
-                Permission.read(Role.user(user2Id)),
-                Permission.update(Role.user(user1Id)),
-                Permission.update(Role.user(user2Id)),
-                Permission.delete(Role.user(user1Id)),
-                Permission.delete(Role.user(user2Id))
+                Permission.read(Role.user(currentUser.id)),
+                Permission.read(Role.user(otherUser.id)),
+                Permission.update(Role.user(currentUser.id)),
+                Permission.update(Role.user(otherUser.id)),
+                Permission.delete(Role.user(currentUser.id)),
+                Permission.delete(Role.user(otherUser.id))
             ),
             Chat::class.java
         )
@@ -51,8 +67,9 @@ class Chats @Inject constructor(
             updatedAt = chat.updatedAt,
             databaseId = chat.collectionId,
             collectionId = chat.databaseId,
-            user1Id = user1Id,
-            user2Id = user2Id
+            user1Id = currentUser.id,
+            user2Id = otherUser.id,
+            lastMessageId = null,
         )
 
         chatDao.insertAll(dbChat)
@@ -78,7 +95,8 @@ class Chats @Inject constructor(
                 listOf(),
                 Chat(
                     dbChat.user1Id,
-                    dbChat.user2Id
+                    dbChat.user2Id,
+                    dbChat.lastMessageId
                 )
             )
 
@@ -120,7 +138,8 @@ class Chats @Inject constructor(
                         listOf(),
                         Chat(
                             it.user1Id,
-                            it.user2Id
+                            it.user2Id,
+                            it.lastMessageId
                         )
                     )
                 }

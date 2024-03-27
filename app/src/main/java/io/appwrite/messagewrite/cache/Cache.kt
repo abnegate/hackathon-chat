@@ -6,6 +6,7 @@ interface Cache<TKey, TValue> {
 
     operator fun set(key: TKey, value: TValue)
     operator fun get(key: TKey): TValue?
+    fun find(func: (TValue) -> Boolean): TValue?
     fun remove(key: TKey)
     fun clear()
 }

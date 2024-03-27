@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.AndroidEntryPoint
 import io.appwrite.messagewrite.databinding.ActivityMainBinding
 
@@ -29,21 +27,25 @@ class MainActivity : AppCompatActivity() {
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
+                R.id.navigation_splash,
+                R.id.navigation_register,
+                R.id.navigation_login,
                 R.id.navigation_chats,
                 R.id.navigation_contacts,
-                R.id.navigation_settings
+                R.id.navigation_settings,
             )
         )
 
-        setupActionBarWithNavController(navController!!, appBarConfiguration)
+        setupActionBarWithNavController(
+            navController!!,
+            appBarConfiguration
+        )
 
-        val chipGroup = findViewById<ChipGroup>(R.id.nav_view)
-        chipGroup.setOnCheckedChangeListener { group, checkedId ->
-            if (checkedId == -1) {
-                return@setOnCheckedChangeListener
+        binding.navView.setOnCheckedStateChangeListener { _, checkedIds ->
+            if (checkedIds.isEmpty()) {
+                return@setOnCheckedStateChangeListener
             }
-
-            navController.navigate(checkedId)
+            navController.navigate(checkedIds.first())
         }
     }
 }

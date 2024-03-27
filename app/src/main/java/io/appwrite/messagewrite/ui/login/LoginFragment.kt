@@ -6,15 +6,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.chip.ChipGroup
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import io.appwrite.messagewrite.R
 import io.appwrite.messagewrite.databinding.FragmentLoginBinding
+import io.appwrite.messagewrite.ui.register.RegisterViewModel
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
 
-    private var _binding: FragmentLoginBinding? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-    private val binding get() = _binding!!
+        requireActivity()
+            .findViewById<ChipGroup>(R.id.nav_view)
+            .visibility = View.GONE
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,15 +32,27 @@ class LoginFragment : Fragment() {
     ): View {
         val vm = ViewModelProvider(this).get(LoginViewModel::class.java)
 
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        vm.error.observe(viewLifecycleOwner) {
+            Snackbar.make(requireView(), it, Snackbar.LENGTH_LONG).show()
+        }
 
-        val root: View = binding.root
+        vm.user.observe(viewLifecycleOwner) {
+            findNavController().navigate(LoginFragmentDirections.actionLoginToChats())
+        }
 
-        return root
-    }
+        val binding = FragmentLoginBinding.inflate(inflater, container, false)
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        binding.btnRegister.setOnClickListener {
+            findNavController().navigate(LoginFragmentDirections.actionLoginToRegister())
+        }
+
+        binding.btnLogin.setOnClickListener {
+            vm.login(
+                binding.emailEditText.text.toString(),
+                binding.passwordEditText.text.toString()
+            )
+        }
+
+        return binding.root
     }
 }

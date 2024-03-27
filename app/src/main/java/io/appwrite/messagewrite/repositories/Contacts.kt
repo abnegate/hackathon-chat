@@ -7,16 +7,17 @@ import io.appwrite.messagewrite.COLLECTION_CONTACTS
 import io.appwrite.messagewrite.DATABASE_ID
 import io.appwrite.messagewrite.cache.Cache
 import io.appwrite.messagewrite.database.dao.Contacts
-import io.appwrite.messagewrite.models.Chat
-import io.appwrite.messagewrite.models.Contact
+import io.appwrite.messagewrite.models.network.Contact
 import io.appwrite.messagewrite.services.Network
-import io.appwrite.messagewrite.models.db.Contact as DBContact
 import io.appwrite.models.Document
 import io.appwrite.models.DocumentList
+import io.appwrite.services.Account
 import io.appwrite.services.Databases
 import javax.inject.Inject
+import io.appwrite.messagewrite.models.db.Contact as DBContact
 
 class Contacts @Inject constructor(
+    private val account : Account,
     private val databases: Databases,
     private val contactDao: Contacts,
     private val cache: Cache<String, Document<Contact>>
@@ -26,11 +27,13 @@ class Contacts @Inject constructor(
     suspend fun create(
         userId: String
     ): Document<Contact> {
+        val currentUser = account.get()
+
         val contact = databases.createDocument(
             DATABASE_ID,
             COLLECTION_CONTACTS,
             ID.unique(),
-            Contact(userId),
+            Contact(currentUser.id, userId),
             null,
             Contact::class.java
         )
@@ -41,6 +44,7 @@ class Contacts @Inject constructor(
             updatedAt = contact.updatedAt,
             databaseId = contact.collectionId,
             collectionId = contact.databaseId,
+            ownerId = currentUser.id,
             userId = userId
         )
 
@@ -66,6 +70,7 @@ class Contacts @Inject constructor(
                 dbContact.databaseId,
                 listOf(),
                 Contact(
+                    dbContact.ownerId,
                     dbContact.userId,
                 )
             )
@@ -108,6 +113,7 @@ class Contacts @Inject constructor(
                         it.databaseId,
                         listOf(),
                         Contact(
+                            it.ownerId,
                             it.userId
                         )
                     )

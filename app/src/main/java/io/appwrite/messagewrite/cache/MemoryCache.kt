@@ -33,6 +33,10 @@ class MemoryCache<TKey, TValue>(
         }
     }
 
+    override fun find(func: (TValue) -> Boolean): TValue? {
+        return cache.values.find { !it.isExpired(maxAge) && func(it.value) }?.value
+    }
+
     override fun remove(key: TKey) {
         cache.remove(key)
         keys.remove(key)

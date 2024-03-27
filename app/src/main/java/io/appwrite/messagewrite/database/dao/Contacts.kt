@@ -3,7 +3,6 @@ package io.appwrite.messagewrite.database.dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import io.appwrite.messagewrite.models.db.Chat
 import io.appwrite.messagewrite.models.db.Contact
 
 @Dao

@@ -22,46 +22,47 @@
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/nav_border"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:background="@drawable/nav_border"
         android:padding="4dp"
+        android:visibility="gone"
         app:chipSpacing="4dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:singleSelection="true"
-        app:singleLine="true">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:singleLine="true"
+        app:singleSelection="true">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/navigation_chats"
-                style="@style/NavigationChipStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/title_chats"
-                android:checked="true"
-                android:clickable="true"
-                android:focusable="true"
-                android:checkable="true"/>
+        <com.google.android.material.chip.Chip
+            android:id="@+id/navigation_chats"
+            style="@style/NavigationChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:checked="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/title_chats" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/navigation_contacts"
-                style="@style/NavigationChipStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/title_contacts"
-                android:clickable="true"
-                android:focusable="true"
-                android:checkable="true"/>
+        <com.google.android.material.chip.Chip
+            android:id="@+id/navigation_contacts"
+            style="@style/NavigationChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/title_contacts" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/navigation_settings"
-                style="@style/NavigationChipStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/title_settings"
-                android:clickable="true"
-                android:focusable="true"
-                android:checkable="true"/>
+        <com.google.android.material.chip.Chip
+            android:id="@+id/navigation_settings"
+            style="@style/NavigationChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/title_settings" />
 
     </com.google.android.material.chip.ChipGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>

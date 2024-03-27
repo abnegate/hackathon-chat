@@ -30,4 +30,7 @@ object Database {
 
     @Provides
     fun provideMessageDao(appDatabase: AppDatabase) = appDatabase.messageDao()
+
+    @Provides
+    fun provideUserDao(appDatabase: AppDatabase) = appDatabase.userDao()
 }

@@ -8,10 +8,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="appwrite_light_grey">#EDEDF0</color>
-    <color name="appwrite_light_mid_grey">#B5B5B5</color>
-    <color name="appwrite_dark_mid_grey">#3A3A3A</color>
-    <color name="appwrite_dark_extra_mid_grey">#4C4C4C</color>
-    <color name="appwrite_dark_grey">#19191D</color>
+    <color name="appwrite_grey_light">#EDEDF0</color>
+    <color name="appwrite_grey_light_mid">#B5B5B5</color>
+    <color name="appwrite_grey_dark_mid">#3A3A3A</color>
+    <color name="appwrite_grey_dark_extra_mid">#4C4C4C</color>
+    <color name="appwrite_grey_dark">#19191D</color>
     <color name="appwrite_pink">#FD366E</color>
+    <color name="appwrite_pink_dark">#B50839</color>
 </resources>

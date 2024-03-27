@@ -3,13 +3,62 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_chats">
+    app:startDestination="@+id/navigation_splash">
+
+    <fragment
+        android:id="@+id/navigation_splash"
+        android:name="io.appwrite.messagewrite.ui.splash.SplashFragment"
+        android:label="">
+
+        <action
+            android:id="@+id/action_splash_to_login"
+            app:destination="@id/navigation_login"
+            app:popUpTo="@+id/navigation_splash"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_splash_to_chats"
+            app:destination="@id/navigation_chats"
+            app:popUpTo="@+id/navigation_splash"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_login"
         android:name="io.appwrite.messagewrite.ui.login.LoginFragment"
-        android:label="@string/title_login"
+        android:label=""
         tools:layout="@layout/fragment_login">
+
+        <action
+            android:id="@+id/action_login_to_register"
+            app:destination="@id/navigation_register"
+            app:popUpTo="@+id/navigation_login"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_login_to_chats"
+            app:destination="@id/navigation_chats"
+            app:popUpTo="@+id/navigation_login"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_register"
+        android:name="io.appwrite.messagewrite.ui.register.RegisterFragment"
+        android:label=""
+        tools:layout="@layout/fragment_register">
+
+        <action
+            android:id="@+id/action_register_to_login"
+            app:destination="@id/navigation_login"
+            app:popUpTo="@+id/navigation_register"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_register_to_chats"
+            app:destination="@id/navigation_chats"
+            app:popUpTo="@+id/navigation_register"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -19,10 +68,46 @@
         tools:layout="@layout/fragment_chats">
 
         <action
-            android:id="@+id/navigate_chats_to_login"
+            android:id="@+id/action_chats_to_login"
             app:destination="@id/navigation_login"
             app:popUpTo="@+id/navigation_chats"
             app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_chats_to_chat"
+            app:destination="@id/navigation_chat">
+            <argument
+                android:name="chatId"
+                app:argType="string" />
+        </action>
+
+        <action
+            android:id="@+id/action_chats_to_new_chat"
+            app:destination="@id/navigation_new_chat" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/navigation_new_chat"
+        android:name="io.appwrite.messagewrite.ui.chats.NewChatDialog"
+        android:label="bottom_sheet"
+        tools:layout="@layout/dialog_chat_new">
+        <action
+            android:id="@+id/action_new_chat_to_chat"
+            app:destination="@id/navigation_chat">
+            <argument
+                android:name="chatId"
+                app:argType="string" />
+        </action>
+    </dialog>
+
+    <fragment
+        android:id="@+id/navigation_chat"
+        android:name="io.appwrite.messagewrite.ui.chats.ChatsFragment"
+        android:label="@string/title_chats"
+        tools:layout="@layout/fragment_chats">
+        <argument
+            android:name="chatId"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -30,7 +115,18 @@
         android:name="io.appwrite.messagewrite.ui.contacts.ContactsFragment"
         android:label="@string/title_contacts"
         tools:layout="@layout/fragment_contacts">
+
+        <action
+            android:id="@+id/action_contacts_to_new_contact"
+            app:destination="@id/navigation_new_contact" />
     </fragment>
+
+    <dialog
+        android:id="@+id/navigation_new_contact"
+        android:name="io.appwrite.messagewrite.ui.contacts.NewContactDialog"
+        android:label="bottom_sheet"
+        tools:layout="@layout/dialog_contact_new">
+    </dialog>
 
     <fragment
         android:id="@+id/navigation_settings"

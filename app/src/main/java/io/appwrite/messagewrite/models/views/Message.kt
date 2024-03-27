@@ -1,4 +1,4 @@
-package io.appwrite.messagewrite.models
+package io.appwrite.messagewrite.models.views
 
 data class Message(
     val chatId: String,
